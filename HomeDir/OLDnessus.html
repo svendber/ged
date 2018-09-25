@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="shortcut icon" type="image/ico" href="http://www.datatables.net/favicon.ico">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+    <title>Editor example - REST interface</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.17/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.5.2/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.6/css/select.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../Editor-PHP-1.7.3/css/editor.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="../Editor-PHP-1.7.3/examples/resources/syntax/shCore.css">
+    <link rel="stylesheet" type="text/css" href="../Editor-PHP-1.7.3/examples/resources/demo.css">
+    <style type="text/css" class="geeeeeed">
+
+    </style>
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.17/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+    <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.2.6/js/dataTables.select.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../Editor-PHP-1.7.3/js/dataTables.editor.min.js"></script>
+    <script type="text/javascript" language="javascript" src="../Editor-PHP-1.7.3/examples/resources/syntax/shCore.js"></script>
+    <script type="text/javascript" language="javascript" src="../Editor-PHP-1.7.3/examples/resources/demo.js"></script>
+    <script type="text/javascript" language="javascript" src="../Editor-PHP-1.7.3/examples/resources/editor-demo.js"></script>
+    <script type="text/javascript" language="javascript" class="geeeeeed">
+
+    </script>
+    <script>
+
+        var editor; // use a global for the submit and return data rendering in the examples
+
+        $(document).ready(function() {
+            editor = new $.fn.dataTable.Editor( {
+                ajax: {
+                    create: {
+                        type: 'POST',
+                        url: '../backend/create.php'
+                    },
+                    remove: {
+                        type: 'POST',
+                        url:  '../backend/remove.php?id=_id_'
+                    },
+                    edit: {
+                        type: 'POST',
+                        url: '../backend/edit.php?id=_id_'
+                    }
+                    },
+
+
+                table: "#nessus",
+                fields: [
+                    {
+                        label: "ip",
+                        name: "ip"
+                    },
+                    {
+                        label: "mac",
+                        name: "mac",
+
+                    },
+                    {
+                        label: "netbiosname",
+                        name: "netbiosname"
+                    },
+                    {
+                        label: "os",
+                        name: "os"
+                    },
+                    {
+                        label: "start",
+                        name: "start"
+                    },
+                    {
+                        label: "stop",
+                        name: "stop"
+                    },
+                    {
+                        label: "plugin_id",
+                        name: "plugin_id"
+                    },
+                    {
+                        label: "plugin_name",
+                        name: "plugin_name"
+                    },
+                    {
+                        label: "port",
+                        name: "port"
+                    },
+                    {
+                        label: "protocol",
+                        name: "protocol"
+                    },
+                    {
+                        label: "cve",
+                        name: "cve"
+                    },
+                    {
+                        label: "cvss_base_score",
+                        name: "cvss_base_score"
+                    },
+                    {
+                        label: "service_name",
+                        name: "service_name"
+                    },
+                    {
+                        label: "description",
+                        name: "description"
+                    },
+                    {
+                        label: "solution",
+                        name: "solution"
+                    },
+
+                ]
+            } );
+
+            $('#nessus').DataTable( {
+                dom: "Bfrtip",
+                // ajax: "../backend/getbackend.php",
+                ajax: "../backend/getNessusBack.php",
+                columns: [
+                    {
+                        data: "ip"
+                    },
+                    {
+                        data: "mac"
+                    },
+                    {
+                        data: "netbiosname"
+                    },
+                    {
+                        data: "os"
+                    },
+                    {
+                        data: "start"
+                    },
+                    {
+                        data: "stop"
+                    },
+                    {
+                        data: "plugin_id"
+                    },
+                    {
+                        data: "plugin_name"
+                    },
+                    {
+                        data: "port"
+                    },
+                    {
+                        data: "protocol"
+                    },
+                    {
+                        data: "cve"
+                    },
+                    {
+                        data: "cvss_base_score"
+                    },
+                    {
+                        data: "service_name"
+                    },
+                    {
+                        data: "description"
+                    },
+                    {
+                        data: "solution"
+                    }
+                ],
+                select: true,
+                buttons: [
+                    { extend: "create", editor: editor },
+                    { extend: "edit",   editor: editor },
+                    { extend: "remove", editor: editor }
+                ]
+            } );
+        } );
+
+    </script>
+
+
+</head>
+<body class="dt-example">
+<div class="container">
+    <section>
+        <h1>Editor example <span>REST interface</span></h1>
+        <div class="demo-html"></div>
+        <table id="nessus" class="display" style="width:100%">
+            <thead>
+            <tr>
+                <th>ip</th>
+                <th>mac</th>
+                <th>netbiosname</th>
+                <th>os</th>
+                <th>start</th>
+                <th>stop</th>
+                <th>plugin id</th>
+                <th>plugin name</th>
+                <th>port</th>
+                <th>protocol</th>
+                <th>cve</th>
+                <th>cvss score</th>
+                <th>service name</th>
+                <th>description</th>
+                <th>solution</th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th>ip</th>
+                <th>mac</th>
+                <th>netbiosname</th>
+                <th>os</th>
+                <th>start</th>
+                <th>stop</th>
+                <th>plugin id</th>
+                <th>plugin name</th>
+                <th>port</th>
+                <th>protocol</th>
+                <th>cve</th>
+                <th>cvss score</th>
+                <th>service name</th>
+                <th>description</th>
+                <th>solution</th>
+            </tr>
+            </tfoot>
+        </table>
+    </section>
+</div>
+
+</body>
+</html>

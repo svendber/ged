@@ -1,0 +1,7 @@
+{
+    "name": "vendor/composervendor",
+    "require": {
+        "phpoffice/phpword": "^0.14.0",
+        "ext-pgsql": "*"
+    }
+}
